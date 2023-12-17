@@ -1,7 +1,5 @@
-Hooks.once('init', async function() {
-
-});
-
 Hooks.once('ready', async function() {
-
+  if (!Theatre && !!game.user.character) {
+    Theatre.instance.functions.addToNavBar(t.actor);
+  }
 });
