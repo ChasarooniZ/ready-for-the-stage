@@ -12,6 +12,21 @@
 
 # Ready for the Stage
 
-Does something, probably
+## Features
+### Character Ready for the stage
+- When logging into foundry, if a user owns a character automatically add them to the stage
+### Macros
+Adds Macros inside of the Ready for Stage Macros
 
-## Changelog
+![image](https://github.com/user-attachments/assets/74f826ca-48fe-4b6d-8606-d264d4c48756)
+
+- **Bring Players to the Stage**
+  - Brings all user characters of logged in *players* to the stage
+- **Control Players on Stage**
+  - Allows you to toggle specific players on and off stage
+- **Clear All Stages**
+  - Send all actors on Stage off stage
+- **Empty Your Stage**
+  - Removes all actors from your stage
+- **Toggle Selected Tokens on Stage**
+  - Toggles whether the selected tokens are either on or off stage
