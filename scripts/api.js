@@ -3,6 +3,7 @@ export function createAPI() {
     bringPlayersToTheStage,
     clearYourStage,
     clearAllStages,
+    toggleSpecificPlayersMenu,
   };
 }
 
