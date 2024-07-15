@@ -79,7 +79,7 @@ function toggleSpecificPlayersMenu() {
     render: (html) => {
       // Add event listeners for buttons
       html.find(".toggle-btn").click((ev) => {
-        const playerId = ev.currentTarget.dataset.playerId;
+        const playerId = ev.currentTarget.dataset.playerid;
         const status = ev.currentTarget.dataset.status === "true";
 
         socketlib.modules
