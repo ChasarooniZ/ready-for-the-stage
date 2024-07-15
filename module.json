@@ -1,11 +1,11 @@
 {
   "id": "ready-for-the-stage",
-  "title": "Ready for the Stage",
+  "title": "Ready for the Stage - Theatre Inserts Extension",
   "description": "",
   "version": "#{VERSION}#",
   "compatibility": {
-    "minimum": 11,
-    "verified": 11
+    "minimum": 12,
+    "verified": 12
   },
   "authors": [
     {
@@ -14,14 +14,37 @@
   ],
   "relationships": {
     "systems": [],
-    "requires": []
+    "requires": [
+      {
+        "id": "socketlib",
+        "type": "module",
+        "manifest": "https://raw.githubusercontent.com/manuelVo/foundryvtt-socketlib/master/module.json"
+      },
+      {
+        "id": "theatre",
+        "type": "module",
+        "manifest": "https://raw.githubusercontent.com/League-of-Foundry-Developers/fvtt-module-theatre/master/module.json"
+      }
+    ]
   },
-  "esmodules": [
-    "scripts/module.js"
+  "esmodules": ["scripts/module.js"],
+  "socket": true,
+  "packs": [
+    {
+      "name": "ready-for-stage-macros",
+      "label": "Ready for Stage Macros",
+      "path": "packs/ready-for-stage-macros",
+      "type": "Macro",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
+    }
   ],
   "url": "#{URL}#",
   "manifest": "#{MANIFEST}#",
   "download": "#{DOWNLOAD}#",
   "license": "LICENSE",
-  "readme": "README.md"
+  "readme": "https://github.com/chasarooniZ/ready-for-the-stage/blob/master/README.md"
 }
