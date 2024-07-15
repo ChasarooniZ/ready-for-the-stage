@@ -4,6 +4,7 @@ export function createAPI() {
     clearYourStage,
     clearAllStages,
     toggleSpecificPlayersMenu,
+    toggleSelectedTokensOnStage,
   };
 }
 
@@ -88,4 +89,38 @@ function toggleSpecificPlayersMenu() {
       });
     },
   }).render(true);
+}
+
+function toggleSelectedTokensOnStage() {
+  let activeTheatre = Object.entries(Theatre.instance.stage).map(
+    ([id, entry]) => ({
+      name: entry.actor.name,
+      id: id,
+    })
+  );
+
+  const t_list = [];
+  const activeTheatreNames = activeTheatre.map((a) => a.name);
+
+  canvas.tokens.controlled.forEach((t) => {
+    const actorName = t.actor.name;
+    if (activeTheatreNames.includes(actorName)) {
+      Theatre.instance.functions.removeFromNavBar(t.actor);
+    } else {
+      Theatre.instance.functions.addToNavBar(t.actor);
+      t_list.push(actorName);
+    }
+  });
+
+  activeTheatre = Object.entries(Theatre.instance.stage).map(([id, entry]) => ({
+    name: entry.actor.name,
+    id: id,
+  }));
+
+  t_list.forEach((name) => {
+    const entry = activeTheatre.find((e) => e.name === name);
+    if (entry) {
+      Theatre.instance.activateInsertById(entry.id);
+    }
+  });
 }
