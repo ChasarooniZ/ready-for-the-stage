@@ -1,9 +1,27 @@
 import { createAPI } from "./api.js";
 import { setupSocket } from "./socket.js";
-
+const MODULE_ID = 'ready-for-the-stage';
 Hooks.once("setup", function () {
-  if (!setupSocket())
-    console.error("Error: Unable to set up socket lib for PF2e Rules Lawyer");
+  if (!setupSocket()) {
+    console.error("Error: Unable to set up socket lib for Read for the Stage");
+  }
+  [
+    "bringPlayersToTheStage",
+    "clearYourStage",
+    "clearAllStages",
+    "toggleSpecificPlayersMenu",
+    "toggleSelectedTokensOnStage"
+  ].forEach(element => {
+    keybindings.register(MODULE_ID, element, {
+      _ID: `${MODULE_ID}.controls.${element}.id`,
+      hint: `${MODULE_ID}.controls.${element}.hint`,
+      editable: [],
+      onDown: () => {
+        game.readyForStage.bringPlayersToTheStage();
+      },
+    });
+
+  });
 });
 
 Hooks.once("ready", async function () {

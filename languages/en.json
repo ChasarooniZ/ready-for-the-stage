@@ -1,0 +1,27 @@
+{
+  "I18N.LANGUAGE": "English",
+  "more-dynamic-token-rings": {
+    "controls": {
+      "bringPlayersToTheStage": {
+        "id": "Bring Players to the Stage",
+        "hint": "Bring Players to the Stage"
+      },
+      "clearYourStage": {
+        "id": "Clear Your Stage",
+        "hint": "Clear Your Stage"
+      },
+      "clearAllStages": {
+        "id": "Clear All Stage",
+        "hint": "Clear All Stage"
+      },
+      "toggleSpecificPlayersMenu": {
+        "id": "Open Toggle Specific Player Menu",
+        "hint": "Allows you to select a specific player to pull to the stage"
+      },
+      "toggleSelectedTokensOnStage": {
+        "id": "Toggle Selected Token to Stage",
+        "hint": "Draws or removed seleect token to the stage"
+      }
+    }
+  }
+}
