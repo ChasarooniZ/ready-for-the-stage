@@ -1,6 +1,6 @@
 import { createAPI } from "./api.js";
 import { setupSocket } from "./socket.js";
-const MODULE_ID = 'ready-for-the-stage';
+const MODULE_ID = "ready-for-the-stage";
 Hooks.once("setup", function () {
   if (!setupSocket()) {
     console.error("Error: Unable to set up socket lib for Read for the Stage");
@@ -10,17 +10,17 @@ Hooks.once("setup", function () {
     "clearYourStage",
     "clearAllStages",
     "toggleSpecificPlayersMenu",
-    "toggleSelectedTokensOnStage"
-  ].forEach(element => {
-    keybindings.register(MODULE_ID, element, {
-      _ID: `${MODULE_ID}.controls.${element}.id`,
+    "toggleSelectedTokensOnStage",
+  ].forEach((element) => {
+    game.keybindings.register(MODULE_ID, element, {
+      name: `${MODULE_ID}.controls.${element}.id`,
       hint: `${MODULE_ID}.controls.${element}.hint`,
       editable: [],
-      onDown: () => {
-        game.readyForStage.bringPlayersToTheStage();
+      onDown: (context) => {
+        game.readyForStage[element]();
       },
+      precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
     });
-
   });
 });
 

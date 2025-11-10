@@ -1,11 +1,11 @@
 {
   "id": "ready-for-the-stage",
   "title": "Ready for the Stage - Theatre Inserts Extension",
-  "description": "",
+  "description": "Changes to theatre inserts to make it more usable (IMO)",
   "version": "#{VERSION}#",
   "compatibility": {
     "minimum": 12,
-    "verified": 12
+    "verified": 13
   },
   "authors": [
     {
