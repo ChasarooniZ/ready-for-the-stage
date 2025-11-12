@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 2.0.1
+
+- Fix issue with setup custom keybinds for `theatre-inserts`
+
 ## 2.0.0
 
 - **New**

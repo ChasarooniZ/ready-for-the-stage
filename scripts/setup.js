@@ -1,5 +1,5 @@
 const theatre = "theatre";
-function setupCustomKeybinds() {
+export function setupCustomKeybinds() {
   const directionKeys = [
     { dir: "Up", key: "W" },
     { dir: "Down", key: "W" },
