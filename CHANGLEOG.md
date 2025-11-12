@@ -1,3 +1,13 @@
+## Unreleased
+
+## 2.0.0
+
+- **New**
+  - Adds custom keybinds for `theatre-inserts`
+- **Updates**
+  - Fixed localization of controls
+  - Updated Dialog to `DialogV2`
+
 ## 1.1.1
 
 - Fix Keybinds

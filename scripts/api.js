@@ -73,22 +73,27 @@ function toggleSpecificPlayersMenu() {
   content += "</table>";
 
   // Display the dialogue box
-  new Dialog({
-    title: "Player Status",
-    content: content,
-    buttons: {},
-    render: (html) => {
-      // Add event listeners for buttons
-      html.find(".toggle-btn").click((ev) => {
-        const playerId = ev.currentTarget.dataset.playerid;
-        const status = ev.currentTarget.dataset.status === "true";
-
-        socketlib.modules
-          .get("ready-for-the-stage")
-          .executeAsUser("toggleSpecificPlayer", playerId, status);
-      });
+  foundry.applications.api.DialogV2.wait({
+    window: {
+      title: "Player Status",
     },
-  }).render(true);
+    content: content,
+    buttons: [],
+    render: (event) => {
+      const html = event.target.element;
+      // Add click handler for each image
+      $(html)
+        .find(".toggle-btn")
+        .click((ev) => {
+          const playerId = ev.currentTarget.dataset.playerid;
+          const status = ev.currentTarget.dataset.status === "true";
+
+          socketlib.modules
+            .get("ready-for-the-stage")
+            .executeAsUser("toggleSpecificPlayer", playerId, status);
+        });
+    },
+  });
 }
 
 function toggleSelectedTokensOnStage() {

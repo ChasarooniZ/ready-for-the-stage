@@ -26,6 +26,8 @@ Hooks.once("setup", function () {
 
 Hooks.once("ready", async function () {
   createAPI();
+  // TODO add a setting to setup custom keybinds
+  setupCustomKeybinds()
   if (!!Theatre && !!game.user?.character) {
     Theatre.instance.functions.addToNavBar(game.user.character);
   }
