@@ -12,22 +12,17 @@ function bringPlayersToTheStage() {
   //execute this macro on players
   socketlib.modules.get("ready-for-the-stage").executeForUsers(
     "bringPlayersToStage",
-    game.users.players.map((p) => p.id)
+    game.users.players.map((p) => p.id),
   );
 }
 
-function clearYourStage() {
-  let activeTheatre = [];
-
-  Object.entries(Theatre.instance.stage).forEach((c) => {
-    activeTheatre.push({
-      name: c[1].actor.name,
-      id: c[0],
-    });
-  });
+export function clearYourStage() {
+  const activeTheatre = Object.values(Theatre.instance.stage).map(
+    (c) => c.actor,
+  );
 
   activeTheatre.forEach((at) => {
-    Theatre.instance.functions.removeFromNavBar(game.actors.getName(at.name));
+    Theatre.instance.functions.removeFromNavBar(at);
   });
 }
 
@@ -101,7 +96,7 @@ function toggleSelectedTokensOnStage() {
     ([id, entry]) => ({
       name: entry.actor.name,
       id: id,
-    })
+    }),
   );
 
   const t_list = [];
