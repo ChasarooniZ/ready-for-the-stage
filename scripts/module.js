@@ -1,4 +1,5 @@
 import { createAPI } from "./api.js";
+import { KEYBINDS } from "./const.js";
 import { setupCustomKeybinds } from "./setup.js";
 import { setupSocket } from "./socket.js";
 const MODULE_ID = "ready-for-the-stage";
@@ -6,19 +7,14 @@ Hooks.once("setup", function () {
   if (!setupSocket()) {
     console.error("Error: Unable to set up socket lib for Read for the Stage");
   }
-  [
-    "bringPlayersToTheStage",
-    "clearYourStage",
-    "clearAllStages",
-    "toggleSpecificPlayersMenu",
-    "toggleSelectedTokensOnStage",
-  ].forEach((element) => {
-    game.keybindings.register(MODULE_ID, element, {
-      name: `${MODULE_ID}.controls.${element}.id`,
-      hint: `${MODULE_ID}.controls.${element}.hint`,
-      editable: [],
+  KEYBINDS.forEach((keybind) => {
+    game.keybindings.register(MODULE_ID, keybind.id, {
+      name: `${MODULE_ID}.controls.${keybind.id}.id`,
+      hint: `${MODULE_ID}.controls.${keybind.id}.hint`,
+      editable: keybind.keys,
+      restricted: keybind.gmOnly,
       onDown: (context) => {
-        game.readyForStage[element]();
+        game.readyForStage[keybind.id]();
       },
       precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
     });
@@ -28,7 +24,7 @@ Hooks.once("setup", function () {
 Hooks.once("ready", async function () {
   createAPI();
   // TODO add a setting to setup custom keybinds
-  setupCustomKeybinds()
+  setupCustomKeybinds();
   if (!!Theatre && !!game.user?.character) {
     Theatre.instance.functions.addToNavBar(game.user.character);
   }

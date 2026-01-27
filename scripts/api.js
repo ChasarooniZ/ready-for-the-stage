@@ -17,12 +17,18 @@ function bringPlayersToTheStage() {
 }
 
 export function clearYourStage() {
-  const activeTheatre = Object.values(Theatre.instance.stage).map(
-    (c) => c.actor,
-  );
+  const activeTheatre = Object.entries(Theatre.instance.stage).map((c) => ({
+    actor: c[1].actor,
+    id: c[0],
+  }));
 
-  activeTheatre.forEach((at) => {
-    Theatre.instance.functions.removeFromNavBar(at);
+  if (!game.user.isGM) {
+    const mainPC = activeTheatre.shift();
+    Theatre.instance.removeInsertById(mainPC.id);
+  }
+
+  activeTheatre.forEach((thespian) => {
+    Theatre.instance.functions.removeFromNavBar(thespian);
   });
 }
 

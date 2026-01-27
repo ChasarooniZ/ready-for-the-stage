@@ -1,36 +1,17 @@
 let socketlibSocket = undefined;
 async function bringPlayersToStageSocket() {
-  let activeTheatre = [];
-
-  Object.entries(Theatre.instance.stage).forEach((c) => {
-    activeTheatre.push({
-      name: c[1].actor.name,
-      id: c[0],
-    });
-  });
+  const activeTheatre = Object.keys(Theatre.instance.stage);
   if (activeTheatre.length > 0) {
-    Theatre.instance.activateInsertById(activeTheatre[0].id);
+    Theatre.instance.activateInsertById(activeTheatre[0]);
   }
 }
 
 async function toggleSpecificPlayerSocket(on) {
-  const activeTheatre = [];
-
-  Object.entries(Theatre.instance.stage).forEach((c) => {
-    activeTheatre.push({
-      name: c[1].actor.name,
-      id: c[0],
-    });
+  Object.keys(Theatre.instance.stage).forEach((thespianID) => {
+    Theatre.instance[on ? "activateInsertById" : "removeInsertById"](
+      thespianID,
+    );
   });
-  if (on) {
-    activeTheatre.forEach((item) => {
-      Theatre.instance.activateInsertById(item.id);
-    });
-  } else {
-    activeTheatre.forEach((item) => {
-      Theatre.instance.removeInsertById(item.id);
-    });
-  }
 }
 
 export const setupSocket = () => {

@@ -8,28 +8,28 @@ export function setupCustomKeybinds() {
   ];
 
   for (const { dir, key } of directionKeys) {
-    const keys = game.keybinds.get(theatre, `nudgePortrait${dir}`);
+    const keys = game.keybinds.get("theatre", `nudgePortrait${dir}`);
     if (
       keys.some(
         (keybind) =>
-          keybind.key === `Key${key}` && keybind.modifiers === "Shift"
+          keybind.key === `Key${key}` && keybind.modifiers === "Shift",
       )
     ) {
     } else {
       keys.push({ key: `Key${key}`, modifiers: ["Shift"] });
-      game.keybinds.set(theatre, `nudgePortrait${dir}`, keys);
+      game.keybinds.set("theatre", `nudgePortrait${dir}`, keys);
     }
   }
 
   if (
     game.keybinds
-      .get(theatre, `flipPortrait`)
+      .get("theatre", `flipPortrait`)
       .some(
-        (keybind) => keybind.key === `KeyE` && keybind.modifiers === "Shift"
+        (keybind) => keybind.key === `KeyE` && keybind.modifiers === "Shift",
       )
   ) {
   } else {
     keys.push({ key: `KeyE`, modifiers: ["Shift"] });
-    game.keybinds.set(theatre, `flipPortrait`, keys);
+    game.keybinds.set("theatre", `flipPortrait`, keys);
   }
 }
