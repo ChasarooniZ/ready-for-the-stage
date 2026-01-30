@@ -23,9 +23,19 @@ export function clearYourStage() {
     id: c[0],
   }));
 
-  if (!game.user.isGM) {
-    const mainPC = activeTheatre.shift();
-    Theatre.instance.removeInsertById(mainPC.id);
+  if (!game.user.character) {
+    const mainPC = activeTheatre.find(
+      (chars) => chars.actor?.id === game.user.character?.id,
+    )?.actor;
+    if (mainPC) {
+      deactivateStagedActor(mainPC);
+      activeTheatre.splice(
+        activeTheatre.findIndex(
+          (chars) => chars.actor?.id === game.user.character?.id,
+        ),
+        1,
+      );
+    }
   }
 
   activeTheatre.forEach((thespian) => {
@@ -99,6 +109,7 @@ function toggleSpecificPlayersMenu() {
 }
 
 function quickToggleStage() {
+  const ids = Object.keys(Theatre.instance.stage);
   const activeTheatreActorIDs = Object.entries(Theatre.instance.stage)
     .filter(([id, entry]) =>
       entry.navElement.classList.contains(
@@ -126,13 +137,13 @@ function quickToggleStage() {
       if (act.id !== game.user.character?.id) {
         Theatre.instance.functions.removeFromNavBar(act);
       } else {
-        Theatre.instance.removeFromStagedByID(getTheatreIdFromActorId(act.id));
+        deactivateStagedActor(act);
       }
     } else if (addOrRemove === "add") {
-      Theatre.instance.functions.addToNavBar(act);
-      Theatre.instance.functions.activateStagedByID(
-        getTheatreIdFromActorId(act.id),
-      );
+      if (!ids.includes(getTheatreIdFromActorId(act.id))) {
+        Theatre.instance.functions.addToNavBar(act);
+      }
+      activateStagedActor(act);
     }
   });
 }
@@ -147,4 +158,16 @@ function toggleSelectedTokensAndStage() {
 
 export function getTheatreIdFromActorId(actorID) {
   return `theatre-${actorID}`;
+}
+
+function activateStagedActor(actor) {
+  Theatre.instance.functions.activateStagedByID(
+    ids.indexOf(getTheatreIdFromActorId(actor.id)),
+  );
+}
+
+function deactivateStagedActor(actor) {
+  Theatre.instance.functions.aremoveFromStagedByID(
+    ids.indexOf(getTheatreIdFromActorId(actor.id)),
+  );
 }
