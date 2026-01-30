@@ -1,6 +1,6 @@
 import { createAPI } from "./api.js";
 import { KEYBINDS } from "./const.js";
-import { setupCustomKeybinds } from "./setup.js";
+import { addPF2eApplicationsToFiltered, setupCustomKeybinds } from "./setup.js";
 import { setupSocket } from "./socket.js";
 const MODULE_ID = "ready-for-the-stage";
 Hooks.once("setup", function () {
@@ -25,6 +25,7 @@ Hooks.once("ready", async function () {
   createAPI();
   // TODO add a setting to setup custom keybinds
   setupCustomKeybinds();
+  addPF2eApplicationsToFiltered()
   if (!!Theatre && !!game.user?.character) {
     Theatre.instance.functions.addToNavBar(game.user.character);
   }

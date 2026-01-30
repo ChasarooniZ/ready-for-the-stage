@@ -1,3 +1,5 @@
+import { CSS_SELECTORS, MODULE_ID } from "./const.js";
+
 const theatre = "theatre";
 export function setupCustomKeybinds() {
   // const directionKeys = [
@@ -6,7 +8,6 @@ export function setupCustomKeybinds() {
   //   { dir: "Left", key: "A" },
   //   { dir: "Right", key: "D" },
   // ];
-
   // for (const { dir, key } of directionKeys) {
   //   const keys = game.keybindings.get("theatre", `nudgePortrait${dir}`);
   //   if (
@@ -20,7 +21,6 @@ export function setupCustomKeybinds() {
   //     game.keybindings.set("theatre", `nudgePortrait${dir}`, keys);
   //   }
   // }
-
   // if (
   //   game.keybindings
   //     .get("theatre", `flipPortrait`)
@@ -32,4 +32,86 @@ export function setupCustomKeybinds() {
   //   keys.push({ key: `KeyE`, modifiers: ["Shift"] });
   //   game.keybindings.set("theatre", `flipPortrait`, keys);
   // }
+}
+
+export function setupSettings() {
+  game.settings.register(MODULE_ID, "voice-mode.old-value", {
+    name: "",
+    hint: "",
+    requiresReload: false,
+    scope: "world",
+    config: false,
+    default: "",
+    type: String,
+  });
+  game.settings.register(MODULE_ID, "voice-mode", {
+    name: `${MODULE_ID}.module-settings.voice-mode.name`,
+    hint: `${MODULE_ID}.module-settings.voice-mode.hint`,
+    requiresReload: false,
+    scope: "world",
+    config: true,
+    default: false,
+    type: Boolean,
+    onChange: async (value) => {
+      if (value) {
+        //backup old
+        await game.settings.set(
+          MODULE_ID,
+          "voice-mode.old-value",
+          game.settings.get("theatre", "theatreStyle"),
+        );
+        await game.settings.set("theatre", "theatreStyle", "clearbox");
+        Theatre.instance.configTheatreStyle("clearbox");
+      } else {
+        const style = game.settings.get(MODULE_ID, "voice-mode.old-value");
+        await game.settings.set("theatre", "theatre-style", style);
+        Theatre.instance.configTheatreStyle(style);
+      }
+    },
+  });
+  game.settings.register(MODULE_ID, "show-names.old-value", {
+    name: "",
+    hint: "",
+    requiresReload: false,
+    scope: "world",
+    config: false,
+    default: 0,
+    type: Number,
+  });
+  game.settings.register(MODULE_ID, "show-names", {
+    name: `${MODULE_ID}.module-settings.show-names.name`,
+    hint: `${MODULE_ID}.module-settings.show-names.hint`,
+    requiresReload: false,
+    scope: "world",
+    config: true,
+    default: true,
+    type: Boolean,
+    onChange: async (value) => {
+      if (!value) {
+        //backup old
+        await game.settings.set(
+          MODULE_ID,
+          "show-names.old-value",
+          game.settings.get("theatre", "nameFontSize"),
+        );
+        await game.settings.set("theatre", "nameFontSize", 0);
+      } else {
+        await game.settings.set(
+          "theatre",
+          "nameFontSize",
+          game.settings.get(MODULE_ID, "show-names.old-value"),
+        );
+      }
+    },
+  });
+}
+
+export async function addPF2eApplicationsToFiltered() {
+  let currCSS = game.settings.get("theatre", "suppressCustomCss");
+  [CSS_SELECTORS.PF2E_PERSISTENT_HUD].forEach((selector) => {
+    if (!currCSS.includes(selector)) {
+      currCSS += `${selector};`;
+    }
+  });
+  await game.settings.set("theatre", "suppressCustomCss", currCSS);
 }

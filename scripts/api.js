@@ -110,6 +110,7 @@ function toggleSpecificPlayersMenu() {
 
 function quickToggleStage() {
   const ids = Object.keys(Theatre.instance.stage);
+  const playerCharactersAndUsers = getActivePlayerIDsAndCharacterIDs();
   const activeTheatreActorIDs = Object.entries(Theatre.instance.stage)
     .filter(([id, entry]) =>
       entry.navElement.classList.contains(
@@ -133,7 +134,15 @@ function quickToggleStage() {
     : "add";
 
   relevantActors.forEach((act) => {
-    if (addOrRemove === "remove") {
+    if (playerCharactersAndUsers.some((pc) => pc.charID === act.id)) {
+      socketlib.modules
+        .get("ready-for-the-stage")
+        .executeAsUser(
+          "toggleSpecificPlayer",
+          playerCharactersAndUsers.find((pc) => pc.charID === act.id).userID,
+          null,
+        );
+    } else if (addOrRemove === "remove") {
       if (act.id !== game.user.character?.id) {
         Theatre.instance.functions.removeFromNavBar(act);
       } else {
@@ -161,13 +170,21 @@ export function getTheatreIdFromActorId(actorID) {
 }
 
 function activateStagedActor(actor) {
+  const ids = Object.keys(Theatre.instance.stage);
   Theatre.instance.functions.activateStagedByID(
     ids.indexOf(getTheatreIdFromActorId(actor.id)),
   );
 }
 
 function deactivateStagedActor(actor) {
-  Theatre.instance.functions.aremoveFromStagedByID(
+  const ids = Object.keys(Theatre.instance.stage);
+  Theatre.instance.functions.removeFromStagedByID(
     ids.indexOf(getTheatreIdFromActorId(actor.id)),
   );
+}
+
+function getActivePlayerIDsAndCharacterIDs() {
+  return game.users.players
+    .filter((p) => p.active)
+    .map((p) => ({ userID: p.id, charID: p?.character?.id }));
 }

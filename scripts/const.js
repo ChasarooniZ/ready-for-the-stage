@@ -1,3 +1,5 @@
+export const MODULE_ID = "ready-for-the-stage";
+
 export const KEYBINDS = [
   {
     id: "quickToggleStage",
@@ -21,7 +23,11 @@ export const KEYBINDS = [
   {
     id: "clearAllStages",
     gmOnly: true,
-    keys: [],
+    keys: [
+      {
+        key: "KeyL",
+      },
+    ],
   },
   {
     id: "toggleSpecificPlayersMenu",
@@ -34,3 +40,7 @@ export const KEYBINDS = [
     keys: [],
   },
 ];
+
+export const CSS_SELECTORS = {
+  PF2E_PERSISTENT_HUD: "#pf2e-hud-persistent",
+};

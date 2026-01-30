@@ -4,15 +4,25 @@ let socketlibSocket = undefined;
 async function bringPlayersToStageSocket() {
   const activeTheatre = Object.keys(Theatre.instance.stage);
   if (activeTheatre.length > 0) {
-    Theatre.instance.activateInsertById(activeTheatre[0]);
+    Theatre.instance.activateStagedByID(0);
   }
 }
 
 async function toggleSpecificPlayerSocket(on) {
-  Object.keys(Theatre.instance.stage).forEach((thespianID) => {
-    Theatre.instance[on ? "activateInsertById" : "removeInsertById"](
-      thespianID,
-    );
+  Object.keys(Theatre.instance.stage).forEach((thespianID, count) => {
+    if (on === null) {
+      Theatre.instance.functions?.[
+        Theatre.instance.stage[thespianID].navElement.classList.contains(
+          "theatre-control-nav-bar-item-active",
+        )
+          ? "removeFromStagedByID"
+          : "activateStagedByID"
+      ](count);
+    } else {
+      Theatre.instance.functions?.[
+        on ? "activateStagedByID" : "removeFromStagedByID"
+      ](count);
+    }
   });
 }
 
