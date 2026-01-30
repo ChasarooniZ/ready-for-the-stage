@@ -101,7 +101,7 @@ function toggleSpecificPlayersMenu() {
 function quickToggleStage() {
   const activeTheatreActorIDs = Object.entries(Theatre.instance.stage)
     .filter(([id, entry]) =>
-      entry.navElement.classList.includes(
+      entry.navElement.classList.contains(
         "theatre-control-nav-bar-item-active",
       ),
     )
