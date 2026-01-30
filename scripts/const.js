@@ -1,7 +1,16 @@
 export const KEYBINDS = [
   {
-    id: "bringPlayersToTheStage",
+    id: "quickToggleStage",
     gmOnly: false,
+    keys: [
+      {
+        key: "KeyK",
+      },
+    ],
+  },
+  {
+    id: "bringPlayersToTheStage",
+    gmOnly: true,
     keys: [],
   },
   {
@@ -11,16 +20,16 @@ export const KEYBINDS = [
   },
   {
     id: "clearAllStages",
-    gmOnly: false,
+    gmOnly: true,
     keys: [],
   },
   {
     id: "toggleSpecificPlayersMenu",
-    gmOnly: false,
+    gmOnly: true,
     keys: [],
   },
   {
-    id: "toggleSelectedTokensOnStage",
+    id: "toggleSelectedTokensAndStage",
     gmOnly: false,
     keys: [],
   },

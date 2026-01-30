@@ -1,3 +1,5 @@
+import { clearYourStage } from "./api.js";
+
 let socketlibSocket = undefined;
 async function bringPlayersToStageSocket() {
   const activeTheatre = Object.keys(Theatre.instance.stage);

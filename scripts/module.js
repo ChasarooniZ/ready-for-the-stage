@@ -13,9 +13,9 @@ Hooks.once("setup", function () {
       hint: `${MODULE_ID}.controls.${keybind.id}.hint`,
       editable: keybind.keys,
       restricted: keybind.gmOnly,
-      onDown: (context) => {
-        game.readyForStage[keybind.id]();
-      },
+      onDown: ((id) => (context) => {
+        game.readyForStage[id]();
+      })(keybind.id),
       precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
     });
   });
