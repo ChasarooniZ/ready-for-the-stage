@@ -20,7 +20,8 @@ export function setupCustomKeybinds() {
     }
     if (
       !keys.some(
-        (keybind) => keybind.key === `Arrow${dir}` && keybind.modifiers === "Alt",
+        (keybind) =>
+          keybind.key === `Arrow${dir}` && keybind.modifiers === "Alt",
       )
     ) {
       keys.push({ key: `Arrow${dir}`, modifiers: ["Alt"] });
@@ -124,7 +125,8 @@ export async function firstTimeMessage() {
   if (game.settings.get(MODULE_ID, "first-time")) {
     await ChatMessage.create({
       content: `<p>@UUID[Compendium.ready-for-the-stage.ready-for-the-stage-help.JournalEntry.0ll9LjdT6ougheIj]</p><p>${game.i18n.localize("ready-for-the-stage.message.first-time")}</p>`,
+      whisper: [game.user.id],
     });
-    await game.settings.set(MODULE_ID, "first-time", false)
+    await game.settings.set(MODULE_ID, "first-time", false);
   }
 }
