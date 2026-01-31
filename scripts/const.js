@@ -18,14 +18,20 @@ export const KEYBINDS = [
   {
     id: "clearYourStage",
     gmOnly: false,
-    keys: [],
+    keys: [
+      {
+        key: "KeyK",
+        modifiers: ["Alt"],
+      },
+    ],
   },
   {
     id: "clearAllStages",
     gmOnly: true,
     keys: [
       {
-        key: "KeyL",
+        key: "KeyK",
+        modifiers: ["Shift"],
       },
     ],
   },

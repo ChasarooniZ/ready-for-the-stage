@@ -1,3 +1,5 @@
+import { MODULE_ID } from "./const";
+
 export function createAPI() {
   game.readyForStage = {
     bringPlayersToTheStage,

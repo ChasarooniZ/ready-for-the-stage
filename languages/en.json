@@ -32,6 +32,9 @@
         "name": "Show Names",
         "hint": "When toggled off this will hide Actor Names in 'Theatre Inserts' by setting the font size to 0"
       }
+    },
+    "message": {
+      "first-time": "Head here to peruse the improve controls and functionality for Theatre Inserts"
     }
   }
 }
