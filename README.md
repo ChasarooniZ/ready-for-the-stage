@@ -25,6 +25,10 @@
     - **Clear All Stages.** _GM Only_ Clears all stage of actors
   - **PF2e Specific Selectors.** Updates Theatre Inserts settings to automatically hid PF2e Persistent HUD when you have the Theatre Inserts setting on to suppress HUD.
 
+https://github.com/user-attachments/assets/01e40f57-3533-4ec9-8142-b9c922ec48a9
+
+<img width="657" height="462" alt="image" src="https://github.com/user-attachments/assets/e02ca7e7-dafc-42a8-af54-55ff86bf7e46" />
+
 ### Macros
 
 Adds Macros inside of the Ready for Stage Macros
