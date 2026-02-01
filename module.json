@@ -1,6 +1,6 @@
 {
   "id": "ready-for-the-stage",
-  "title": "Ready for the Stage - Theatre Inserts Extension",
+  "title": "Ready for the Stage: Theatre Inserts Extension",
   "description": "Changes to theatre inserts to make it more usable (IMO)",
   "version": "#{VERSION}#",
   "compatibility": {
@@ -39,7 +39,7 @@
   "packs": [
     {
       "name": "ready-for-stage-macros",
-      "label": "Ready for Stage Macros",
+      "label": "Ready for The Stage Macros",
       "path": "packs/ready-for-stage-macros",
       "type": "Macro",
       "ownership": {
@@ -49,7 +49,7 @@
     },
     {
       "name": "ready-for-the-stage-help",
-      "label": "Ready for Stage",
+      "label": "Ready for The Stage",
       "path": "packs/ready-for-the-stage-help",
       "type": "JournalEntry",
       "ownership": {
