@@ -1,4 +1,9 @@
-import { CSS_SELECTORS, KEYBINDS, MODULE_ID } from "./const.js";
+import {
+  CONTROLS_JOURNAL_UUID,
+  CSS_SELECTORS,
+  KEYBINDS,
+  MODULE_ID,
+} from "./const.js";
 
 const theatre = "theatre";
 export function setupModuleKeybinds() {
@@ -73,6 +78,7 @@ export function setupSettings() {
     default: false,
     type: Boolean,
     onChange: async (value) => {
+      if (!game.user.isGM) return;
       if (value) {
         //backup old
         await game.settings.set(
@@ -107,6 +113,7 @@ export function setupSettings() {
     default: true,
     type: Boolean,
     onChange: async (value) => {
+      if (!game.user.isGM) return;
       if (!value) {
         //backup old
         await game.settings.set(
@@ -139,7 +146,7 @@ export async function addPF2eApplicationsToFiltered() {
 export async function firstTimeMessage() {
   if (game.settings.get(MODULE_ID, "first-time")) {
     await ChatMessage.create({
-      content: `<p>@UUID[Compendium.ready-for-the-stage.ready-for-the-stage-help.JournalEntry.0ll9LjdT6ougheIj]</p><p>${game.i18n.localize("ready-for-the-stage.message.first-time")}</p>`,
+      content: `<p>@UUID[${CONTROLS_JOURNAL_UUID}]</p><p>${game.i18n.localize("ready-for-the-stage.message.first-time")}</p>`,
       whisper: [game.user.id],
     });
     await game.settings.set(MODULE_ID, "first-time", false);

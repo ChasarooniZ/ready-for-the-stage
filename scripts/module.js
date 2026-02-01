@@ -3,6 +3,7 @@ import {
   addPF2eApplicationsToFiltered,
   firstTimeMessage,
   setupCustomKeybinds,
+  setupModuleKeybinds,
   setupSettings,
 } from "./setup.js";
 import { setupSocket } from "./socket.js";

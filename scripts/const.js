@@ -1,5 +1,8 @@
 export const MODULE_ID = "ready-for-the-stage";
 
+export const CONTROLS_JOURNAL_UUID =
+  "Compendium.ready-for-the-stage.ready-for-the-stage-help.JournalEntry.0ll9LjdT6ougheIj.JournalEntryPage.LlGbovQZQhOsXPvU";
+
 export const KEYBINDS = [
   {
     id: "quickToggleStage",

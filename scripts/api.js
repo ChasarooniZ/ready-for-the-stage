@@ -23,7 +23,7 @@ export function clearYourStage() {
     id: c[0],
   }));
 
-  if (!game.user.character) {
+  if (!!game.user.character) {
     const mainPC = activeTheatre.find(
       (chars) => chars.actor?.id === game.user.character?.id,
     )?.actor;
@@ -39,7 +39,7 @@ export function clearYourStage() {
   }
 
   activeTheatre.forEach((thespian) => {
-    Theatre.instance.functions.removeFromNavBar(thespian);
+    Theatre.instance.functions.removeFromNavBar(thespian.actor);
   });
 }
 
@@ -111,13 +111,9 @@ function toggleSpecificPlayersMenu() {
 function quickToggleStage() {
   const ids = Object.keys(Theatre.instance.stage);
   const playerCharactersAndUsers = getActivePlayerIDsAndCharacterIDs();
-  const activeTheatreActorIDs = Object.entries(Theatre.instance.stage)
-    .filter(([id, entry]) =>
-      entry.navElement.classList.contains(
-        "theatre-control-nav-bar-item-active",
-      ),
-    )
-    .map(([id, entry]) => entry.actor.id);
+  const activeTheatreActorIDs = Theatre.instance.portraitDocks.map((item) =>
+    getActorIdFromTheatreId(item.imgId),
+  );
 
   const relevantActors =
     canvas.tokens.controlled?.length > 0
@@ -140,7 +136,7 @@ function quickToggleStage() {
         .executeAsUser(
           "toggleSpecificPlayer",
           playerCharactersAndUsers.find((pc) => pc.charID === act.id).userID,
-          null,
+          addOrRemove === "add",
         );
     } else if (addOrRemove === "remove") {
       if (act.id !== game.user.character?.id) {
@@ -167,6 +163,10 @@ function toggleSelectedTokensAndStage() {
 
 export function getTheatreIdFromActorId(actorID) {
   return `theatre-${actorID}`;
+}
+
+export function getActorIdFromTheatreId(theatreID) {
+  return theatreID.replace("theatre-", "");
 }
 
 function activateStagedActor(actor) {

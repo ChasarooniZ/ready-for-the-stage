@@ -23,7 +23,7 @@
         "hint": "Draws or removed select token to the stage"
       }
     },
-    "settings": {
+    "module-settings": {
       "voice-mode": {
         "name": "Voice Only Mode",
         "hint": "This mode changes 'Theatre Inserts' module settings to hide the textbox if your group doesn't use them"
