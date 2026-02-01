@@ -1,32 +1,25 @@
 import { createAPI } from "./api.js";
-import { KEYBINDS } from "./const.js";
-import { addPF2eApplicationsToFiltered, firstTimeMessage, setupCustomKeybinds } from "./setup.js";
+import {
+  addPF2eApplicationsToFiltered,
+  firstTimeMessage,
+  setupCustomKeybinds,
+  setupSettings,
+} from "./setup.js";
 import { setupSocket } from "./socket.js";
-const MODULE_ID = "ready-for-the-stage";
 Hooks.once("setup", function () {
   if (!setupSocket()) {
     console.error("Error: Unable to set up socket lib for Read for the Stage");
   }
-  KEYBINDS.forEach((keybind) => {
-    game.keybindings.register(MODULE_ID, keybind.id, {
-      name: `${MODULE_ID}.controls.${keybind.id}.id`,
-      hint: `${MODULE_ID}.controls.${keybind.id}.hint`,
-      editable: keybind.keys,
-      restricted: keybind.gmOnly,
-      onDown: ((id) => (context) => {
-        game.readyForStage[id]();
-      })(keybind.id),
-      precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
-    });
-  });
+  setupSettings();
+  setupModuleKeybinds();
 });
 
 Hooks.once("ready", async function () {
   createAPI();
   // TODO add a setting to setup custom keybinds
   setupCustomKeybinds();
-  addPF2eApplicationsToFiltered()
-  firstTimeMessage()
+  addPF2eApplicationsToFiltered();
+  firstTimeMessage();
   if (!!Theatre && !!game.user?.character) {
     Theatre.instance.functions.addToNavBar(game.user.character);
   }

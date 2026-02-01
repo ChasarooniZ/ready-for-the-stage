@@ -1,6 +1,21 @@
-import { CSS_SELECTORS, MODULE_ID } from "./const.js";
+import { CSS_SELECTORS, KEYBINDS, MODULE_ID } from "./const.js";
 
 const theatre = "theatre";
+export function setupModuleKeybinds() {
+  KEYBINDS.forEach((keybind) => {
+    game.keybindings.register(MODULE_ID, keybind.id, {
+      name: `${MODULE_ID}.controls.${keybind.id}.id`,
+      hint: `${MODULE_ID}.controls.${keybind.id}.hint`,
+      editable: keybind.keys,
+      restricted: keybind.gmOnly,
+      onDown: ((id) => (context) => {
+        game.readyForStage[id]();
+      })(keybind.id),
+      precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
+    });
+  });
+}
+
 export function setupCustomKeybinds() {
   const directionKeys = [
     { dir: "Up", key: "W" },
