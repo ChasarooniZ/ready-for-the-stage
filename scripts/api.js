@@ -4,7 +4,8 @@ export function createAPI() {
     clearYourStage,
     clearAllStages,
     toggleSpecificPlayersMenu,
-    toggleSelectedTokensOnStage,
+    quickToggleStage,
+    toggleSelectedTokensAndStage,
   };
 }
 
@@ -12,22 +13,33 @@ function bringPlayersToTheStage() {
   //execute this macro on players
   socketlib.modules.get("ready-for-the-stage").executeForUsers(
     "bringPlayersToStage",
-    game.users.players.map((p) => p.id)
+    game.users.players.map((p) => p.id),
   );
 }
 
-function clearYourStage() {
-  let activeTheatre = [];
+export function clearYourStage() {
+  const activeTheatre = Object.entries(Theatre.instance.stage).map((c) => ({
+    actor: c[1].actor,
+    id: c[0],
+  }));
 
-  Object.entries(Theatre.instance.stage).forEach((c) => {
-    activeTheatre.push({
-      name: c[1].actor.name,
-      id: c[0],
-    });
-  });
+  if (!!game.user.character) {
+    const mainPC = activeTheatre.find(
+      (chars) => chars.actor?.id === game.user.character?.id,
+    )?.actor;
+    if (mainPC) {
+      deactivateStagedActor(mainPC);
+      activeTheatre.splice(
+        activeTheatre.findIndex(
+          (chars) => chars.actor?.id === game.user.character?.id,
+        ),
+        1,
+      );
+    }
+  }
 
-  activeTheatre.forEach((at) => {
-    Theatre.instance.functions.removeFromNavBar(game.actors.getName(at.name));
+  activeTheatre.forEach((thespian) => {
+    Theatre.instance.functions.removeFromNavBar(thespian.actor);
   });
 }
 
@@ -96,36 +108,83 @@ function toggleSpecificPlayersMenu() {
   });
 }
 
-function toggleSelectedTokensOnStage() {
-  let activeTheatre = Object.entries(Theatre.instance.stage).map(
-    ([id, entry]) => ({
-      name: entry.actor.name,
-      id: id,
-    })
+function quickToggleStage() {
+  const ids = Object.keys(Theatre.instance.stage);
+  const playerCharactersAndUsers = getActivePlayerIDsAndCharacterIDs();
+  const activeTheatreActorIDs = Theatre.instance.portraitDocks.map((item) =>
+    getActorIdFromTheatreId(item.imgId),
   );
 
-  const t_list = [];
-  const activeTheatreNames = activeTheatre.map((a) => a.name);
+  const relevantActors =
+    canvas.tokens.controlled?.length > 0
+      ? canvas.tokens.controlled.map((t) => t.actor)
+      : game.user.character
+        ? [game.user.character]
+        : [];
 
-  canvas.tokens.controlled.forEach((t) => {
-    const actorName = t.actor.name;
-    if (activeTheatreNames.includes(actorName)) {
-      Theatre.instance.functions.removeFromNavBar(t.actor);
-    } else {
-      Theatre.instance.functions.addToNavBar(t.actor);
-      t_list.push(actorName);
+  // If any tokens from the group are on the board, remove them, else add
+  const addOrRemove = relevantActors.some((act) =>
+    activeTheatreActorIDs.includes(act.id),
+  )
+    ? "remove"
+    : "add";
+
+  relevantActors.forEach((act) => {
+    if (playerCharactersAndUsers.some((pc) => pc.charID === act.id)) {
+      socketlib.modules
+        .get("ready-for-the-stage")
+        .executeAsUser(
+          "toggleSpecificPlayer",
+          playerCharactersAndUsers.find((pc) => pc.charID === act.id).userID,
+          addOrRemove === "add",
+        );
+    } else if (addOrRemove === "remove") {
+      if (act.id !== game.user.character?.id) {
+        Theatre.instance.functions.removeFromNavBar(act);
+      } else {
+        deactivateStagedActor(act);
+      }
+    } else if (addOrRemove === "add") {
+      if (!ids.includes(getTheatreIdFromActorId(act.id))) {
+        Theatre.instance.functions.addToNavBar(act);
+      }
+      activateStagedActor(act);
     }
   });
+}
 
-  activeTheatre = Object.entries(Theatre.instance.stage).map(([id, entry]) => ({
-    name: entry.actor.name,
-    id: id,
-  }));
+function toggleSelectedTokensAndStage() {
+  if (Object.keys(theatre.stage).length > 0) {
+    game.readyForStage.clearYourStage();
+  } else {
+    game.readyForStage.quickToggleStage();
+  }
+}
 
-  t_list.forEach((name) => {
-    const entry = activeTheatre.find((e) => e.name === name);
-    if (entry) {
-      Theatre.instance.activateInsertById(entry.id);
-    }
-  });
+export function getTheatreIdFromActorId(actorID) {
+  return `theatre-${actorID}`;
+}
+
+export function getActorIdFromTheatreId(theatreID) {
+  return theatreID.replace("theatre-", "");
+}
+
+function activateStagedActor(actor) {
+  const ids = Object.keys(Theatre.instance.stage);
+  Theatre.instance.functions.activateStagedByID(
+    ids.indexOf(getTheatreIdFromActorId(actor.id)),
+  );
+}
+
+function deactivateStagedActor(actor) {
+  const ids = Object.keys(Theatre.instance.stage);
+  Theatre.instance.functions.removeFromStagedByID(
+    ids.indexOf(getTheatreIdFromActorId(actor.id)),
+  );
+}
+
+function getActivePlayerIDsAndCharacterIDs() {
+  return game.users.players
+    .filter((p) => p.active)
+    .map((p) => ({ userID: p.id, charID: p?.character?.id }));
 }
