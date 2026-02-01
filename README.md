@@ -13,7 +13,6 @@
 
 ## Features
 
-- When logging into foundry, if a user owns a character automatically add them to the stage
   - **Characters Ready for the Stage.** When a player connects who has a character set to their User, that actor will be automatically added to the Theatre Inserts bar
   - **Simplified Settings.** Peruse your way over to the Ready For Stage module settings to find some simplified settings used to modify some Theatre Inserts settings in ways I find nicely usable
   - **New Hotkeys.** Peruse the Ready For Stage controls settings to see the full list of new functions, but I'll go over Relevant Hotkeys on the next page
