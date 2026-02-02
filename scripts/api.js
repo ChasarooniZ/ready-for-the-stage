@@ -151,6 +151,9 @@ function quickToggleStage() {
       activateStagedActor(act);
     }
   });
+  setTimeout(() => {
+    document.getElementById("chat-message").blur();
+  }, 200);
 }
 
 function toggleSelectedTokensAndStage() {
