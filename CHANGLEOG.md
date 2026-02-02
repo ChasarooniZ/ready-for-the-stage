@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 2.0.1
+
+- **Updated**
+  - Added duck tape fix to prevent the chat from being selected when using quick select
+
 ## 2.0.0
 
 - **New**
@@ -11,7 +16,7 @@
       - Additionally if you are a player and have no tokens selected it will toggle your user's Character in and out of Theatre Inserts.
       - Additionally if you select a token is a currently active user's Character it will add them to their stage thus allowing them to nudge and flip it themselves
     - **Clear Your Stage.** Clears your stage of actors
-    - **Clear All Stages.** *GM Only* Clears all stage of actors
+    - **Clear All Stages.** _GM Only_ Clears all stage of actors
   - **PF2e Specific Selectors.** Updates Theatre Inserts settings to automatically hid PF2e Persistent HUD when you have the Theatre Inserts setting on to suppress HUD.
 
 ## 1.1.1
