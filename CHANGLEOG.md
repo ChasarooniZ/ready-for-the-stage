@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 2.0.3
+
+- fix dependency url
+
 ## 2.0.1
 
 - **Updated**
