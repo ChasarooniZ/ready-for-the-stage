@@ -22,8 +22,7 @@
       },
       {
         "id": "theatre",
-        "type": "module",
-        "manifest": "https://raw.githubusercontent.com/League-of-Foundry-Developers/fvtt-module-theatre/master/module.json"
+        "type": "module"
       }
     ]
   },
