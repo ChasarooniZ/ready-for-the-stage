@@ -1,6 +1,6 @@
 {
   "I18N.LANGUAGE": "English",
-  "more-dynamic-token-rings": {
+  "ready-for-the-stage": {
     "controls": {
       "bringPlayersToTheStage": {
         "id": "Bring Players to the Stage",
@@ -18,10 +18,23 @@
         "id": "Open Toggle Specific Player Menu",
         "hint": "Allows you to select a specific player to pull to the stage"
       },
-      "toggleSelectedTokensOnStage": {
-        "id": "Toggle Selected Token to Stage",
-        "hint": "Draws or removed seleect token to the stage"
+      "quickToggleStage": {
+        "id": "Quick Toggle Selected Token to Stage",
+        "hint": "Draws or removed select token to the stage"
       }
+    },
+    "module-settings": {
+      "voice-mode": {
+        "name": "Voice Only Mode",
+        "hint": "This mode changes 'Theatre Inserts' module settings to hide the textbox if your group doesn't use them"
+      },
+      "show-names": {
+        "name": "Show Names",
+        "hint": "When toggled off this will hide Actor Names in 'Theatre Inserts' by setting the font size to 0"
+      }
+    },
+    "message": {
+      "first-time": "Head here to peruse the features and improved controls and functionality in Ready for the Stage: Theatre Inserts Extension"
     }
   }
 }

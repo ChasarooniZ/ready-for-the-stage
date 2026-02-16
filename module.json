@@ -1,6 +1,6 @@
 {
   "id": "ready-for-the-stage",
-  "title": "Ready for the Stage - Theatre Inserts Extension",
+  "title": "Ready for the Stage: Theatre Inserts Extension",
   "description": "Changes to theatre inserts to make it more usable (IMO)",
   "version": "#{VERSION}#",
   "compatibility": {
@@ -22,8 +22,7 @@
       },
       {
         "id": "theatre",
-        "type": "module",
-        "manifest": "https://raw.githubusercontent.com/League-of-Foundry-Developers/fvtt-module-theatre/master/module.json"
+        "type": "module"
       }
     ]
   },
@@ -39,14 +38,23 @@
   "packs": [
     {
       "name": "ready-for-stage-macros",
-      "label": "Ready for Stage Macros",
+      "label": "Ready for The Stage Macros",
       "path": "packs/ready-for-stage-macros",
       "type": "Macro",
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
-      },
-      "flags": {}
+      }
+    },
+    {
+      "name": "ready-for-the-stage-help",
+      "label": "Ready for The Stage",
+      "path": "packs/ready-for-the-stage-help",
+      "type": "JournalEntry",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
     }
   ],
   "url": "#{URL}#",
