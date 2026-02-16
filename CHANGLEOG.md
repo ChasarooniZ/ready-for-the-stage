@@ -1,3 +1,7 @@
+## 1.1.2
+
+- Fixed keybind adding bug by disabling them temporarily
+
 ## 1.1.1
 
 - Fix Keybinds
